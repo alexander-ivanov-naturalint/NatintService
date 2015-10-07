@@ -1,12 +1,11 @@
-package Site;
+package com.natint.site;
 
-import Data.IData;
+import com.natint.data.IData;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -16,6 +15,9 @@ import java.util.List;
  * Created by ivaa on 10/6/2015.
  */
 public abstract class Site {
+
+    private PhantomJSDriver driver;
+
     public static Site getInstance(String siteName) {
         return new Ebay();
     }
@@ -23,8 +25,6 @@ public abstract class Site {
     protected PhantomJSDriver getDriver() {
         return driver;
     }
-
-    private PhantomJSDriver driver;
 
     public List<IData> collectData(String searchCriteria, int resultsAmount)
     {

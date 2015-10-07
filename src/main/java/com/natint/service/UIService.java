@@ -1,7 +1,7 @@
-package Service;
+package com.natint.service;
 
-import Data.IData;
-import Site.Site;
+import com.natint.data.IData;
+import com.natint.site.Site;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

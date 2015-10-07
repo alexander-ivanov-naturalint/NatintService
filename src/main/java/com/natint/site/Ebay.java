@@ -1,10 +1,7 @@
-package Site;
+package com.natint.site;
 
-import Data.BaseData;
-import Data.IData;
+import com.natint.data.IData;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -21,10 +18,7 @@ public class Ebay extends Site {
     }
 
     @Override
-    protected void doSearch(String searchCriteria)
-    {
-
-    }
+    protected void doSearch(String searchCriteria){}
 
     @Override
     protected void open() {

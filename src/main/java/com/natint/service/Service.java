@@ -1,7 +1,7 @@
-package Service;
+package com.natint.service;
 
 
-import Data.IData;
+import com.natint.data.IData;
 
 import java.util.List;
 import java.util.Map;
