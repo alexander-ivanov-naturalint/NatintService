@@ -9,15 +9,15 @@ public class BaseData implements IData{
         return link;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public BaseData(String link, double price) {
+    public BaseData(String link, String price) {
         this.link = link;
         this.price = price;
     }
 
     private String link;
-    private double price;
+    private String price;
 }

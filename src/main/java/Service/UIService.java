@@ -18,7 +18,8 @@ public class UIService implements Service{
     public @ResponseBody List<IData> getData(@RequestBody Map<String, String> params) {
 
         Site site = Site.getInstance(params.get("siteName"));
-        return site.collectData(params.get("searchCriteria"), Integer.parseInt(params.get("resultsAmount")));
+        return site.collectData("Nexus", 5);
+        //return site.collectData(params.get("searchCriteria"), Integer.parseInt(params.get("resultsAmount")));
     }
 
 }

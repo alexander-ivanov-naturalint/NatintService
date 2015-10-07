@@ -1,12 +1,12 @@
 package Site;
 
 import Data.IData;
+import Site.Ebay.Ebay;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -57,7 +57,7 @@ public abstract class Site {
                 PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
                 phantomjsPath
         );
-        
+
         driver = new PhantomJSDriver(caps);
     }
 
