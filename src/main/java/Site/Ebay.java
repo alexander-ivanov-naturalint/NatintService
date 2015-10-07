@@ -1,7 +1,10 @@
 package Site;
 
+import Data.BaseData;
 import Data.IData;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -12,12 +15,8 @@ public class Ebay extends Site {
     public static final String EBAY_COM = "http://www.ebay.com";
 
     @Override
-    public List<IData> collectData(String searchCriteria, int resultsAmount) {
-        return null;
-    }
-
-    @Override
-    protected List<IData> getResults(int resultsAmount) {
+    protected List<IData> getResults(int resultsAmount)
+    {
         return null;
     }
 

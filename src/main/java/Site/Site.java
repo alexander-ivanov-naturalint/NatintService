@@ -7,6 +7,9 @@ import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.util.List;
 
 /**
@@ -39,16 +42,22 @@ public abstract class Site {
 
     private void prepare()
     {
+        URL url = Site.class.getClassLoader().getResource("phantomjs.exe");
+        String phantomjsPath = null;
+        try {
+            phantomjsPath = URLDecoder.decode(url.getPath(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         Capabilities caps = new DesiredCapabilities();
         ((DesiredCapabilities) caps).setJavascriptEnabled(true);
         //((DesiredCapabilities) caps).setCapability("takesScreenshot", true);
         ((DesiredCapabilities) caps).setCapability(
                 PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
-                "your custom path\\phantomjs.exe"
+                phantomjsPath
         );
-
-        //File file = new File("C:/Program Files/phantomjs-1.9.7-windows/phantomjs.exe");
-        //System.setProperty("phantomjs.binary.path", file.getAbsolutePath());
+        
         driver = new PhantomJSDriver(caps);
     }
 
