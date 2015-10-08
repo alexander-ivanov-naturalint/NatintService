@@ -19,6 +19,8 @@ import java.util.logging.Level;
 public abstract class Site {
 
     private PhantomJSDriver driver;
+    private String searchCriteria;
+    private int resultsAmount;
 
     public Site(PhantomJSDriver driver) {
         this.driver = driver;
@@ -32,7 +34,13 @@ public abstract class Site {
         return driver;
     }
 
-    public List<IData> collectData(String searchCriteria, int resultsAmount) {
+    public Site withParams(String _searchCriteria, int _resultsAmount) {
+        searchCriteria = _searchCriteria;
+        resultsAmount = _resultsAmount;
+        return this;
+    }
+
+    public List<IData> collectData() {
         prepare();
         open();
         doSearch(searchCriteria);
