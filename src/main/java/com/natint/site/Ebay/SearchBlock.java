@@ -1,6 +1,5 @@
-package Site.Ebay;
+package com.natint.site.Ebay;
 
-import Site.Site;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.Button;

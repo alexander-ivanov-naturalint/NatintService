@@ -1,4 +1,4 @@
-package Site.Ebay;
+package com.natint.site.Ebay;
 
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.annotations.Name;

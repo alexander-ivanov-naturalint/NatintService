@@ -1,8 +1,9 @@
-package Site.Ebay;
+package com.natint.site.Ebay;
 
-import Data.BaseData;
-import Data.IData;
-import Site.Site;
+
+import com.natint.site.Site;
+import com.natint.data.BaseData;
+import com.natint.data.IData;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
