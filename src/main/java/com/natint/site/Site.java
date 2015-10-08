@@ -2,6 +2,7 @@ package com.natint.site;
 
 import com.natint.data.IData;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
@@ -14,13 +15,14 @@ public abstract class Site {
 
     public Site (PhantomJSDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    public Site () {
     }
 
     protected PhantomJSDriver getDriver() {
         return driver;
-    }
-
-    public Site () {
     }
 
     public List<IData> collectData(String searchCriteria, int resultsAmount)

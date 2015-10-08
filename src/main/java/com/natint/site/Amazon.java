@@ -20,19 +20,19 @@ public class Amazon extends Site {
     private PhantomJSDriver driver;
     private String amazonLink;
 
+//    @FindBy(xpath = "//input[@id='twotabsearchtextbox']")
+//    private TextInput searchInput;
+
     private static final String SEARCH_INPUT = "//input[@id='twotabsearchtextbox']";
     private static final String SEARCH_BUTTON = "//input[@value='Go']";
-    private static final String PRODUCT_LINK_TEMPLATE = "//li[@id='result_%d']//a[contains(@class,'s-access-detail-page')]";
-    private static final String PRODUCT_PRICE_TEMPLATE = "//li[@id='result_%d']//span[contains(@class,'s-price')]";
-
-    public Amazon (){
-        logger.info(getDriver());
-        PageFactory.initElements(getDriver(), this);
-    }
+    private static final String PRODUCT_LINK_TEMPLATE = "//li[starts-with(@id,'result_')]//a[contains(@class,'s-access-detail-page')]";
+    private static final String PRODUCT_PRICE_TEMPLATE = "//div[@class='a-row']//div[contains(@class,'a-span7')]/div[1]//a[1]/span[1]";
+    private static final String NEXT_PAGE_LINK = "//a[@id='pagnNextLink']";
 
     public Amazon(PhantomJSDriver driver, String amazonLink) {
         this.driver = driver;
         this.amazonLink = amazonLink;
+        PageFactory.initElements(driver, this);
     }
 
     @Override
@@ -44,10 +44,28 @@ public class Amazon extends Site {
     protected List<IData> getResults(int resultsAmount) {
         logger.info("Method getResults started...");
         List<IData> result = new ArrayList<>();
-        for (int i = 0; i < resultsAmount; i++){
-            WebElement productLinkElement = getDriver().findElementByXPath(String.format(PRODUCT_LINK_TEMPLATE, i));
-            WebElement productPriceElement = getDriver().findElementByXPath(String.format(PRODUCT_PRICE_TEMPLATE, i));
-            result.add(new BaseData(productLinkElement.getAttribute("href"), Double.parseDouble(productPriceElement.getText().substring(1))));
+
+        while (resultsAmount > 0) {
+            List<WebElement> linkElements = getDriver().findElementsByXPath(PRODUCT_LINK_TEMPLATE);
+            List<WebElement> priceElements = getDriver().findElementsByXPath(PRODUCT_PRICE_TEMPLATE);
+            int elementsAmount = linkElements.size();
+            if (resultsAmount < elementsAmount) {
+                for (int i = 0; i < resultsAmount; i++) {
+                    WebElement productLinkElement = linkElements.get(i);
+                    WebElement productPriceElement = priceElements.get(i);
+                    result.add(new BaseData(productLinkElement.getAttribute("href"), Double.parseDouble(productPriceElement.getText().substring(1).replace(",", ""))));
+                }
+            } else {
+                for (int i = 0; i < elementsAmount; i++) {
+                    WebElement productLinkElement = linkElements.get(i);
+                    WebElement productPriceElement = priceElements.get(i);
+                    result.add(new BaseData(productLinkElement.getAttribute("href"), Double.parseDouble(productPriceElement.getText().substring(1).replace(",", ""))));
+                }
+            }
+            resultsAmount = resultsAmount - elementsAmount;
+            if (!getDriver().findElementsByXPath(NEXT_PAGE_LINK).isEmpty()){
+                getDriver().findElementByXPath(NEXT_PAGE_LINK).click();
+            }
         }
         logger.info("Search results : " + result.toString());
         return result;
