@@ -4,8 +4,6 @@ import com.natint.data.BaseData;
 import com.natint.data.IData;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,25 +15,13 @@ public class Amazon extends Site {
 
     private Logger logger = Logger.getLogger(this.getClass());
 
-    private PhantomJSDriver driver;
-    private String amazonLink;
+    private static final String AMAZON_LINK = "https://www.amazon.com/gp/gw/ajax/s.html";
 
     private static final String SEARCH_INPUT = "//input[@id='twotabsearchtextbox']";
     private static final String SEARCH_BUTTON = "//input[@value='Go']";
     private static final String PRODUCT_LINK_TEMPLATE = "//li[starts-with(@id,'result_')]//a[contains(@class,'s-access-detail-page')]";
     private static final String PRODUCT_PRICE_TEMPLATE = "//div[@class='a-row']//div[contains(@class,'a-span7')]/div[1]//a[1]/span[1]";
     private static final String NEXT_PAGE_LINK = "//a[@id='pagnNextLink']";
-
-    public Amazon(PhantomJSDriver driver, String amazonLink) {
-        this.driver = driver;
-        this.amazonLink = amazonLink;
-        PageFactory.initElements(driver, this);
-    }
-
-    @Override
-    public PhantomJSDriver getDriver() {
-        return driver;
-    }
 
     @Override
     protected List<IData> getResults(int resultsAmount) {
@@ -79,7 +65,7 @@ public class Amazon extends Site {
     @Override
     protected void open() {
         logger.info("Method open() started...");
-        getDriver().get(amazonLink);
+        getDriver().get(AMAZON_LINK);
         logger.info("Amazon site is opened");
     }
 }
