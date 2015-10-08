@@ -20,9 +20,6 @@ public class Amazon extends Site {
     private PhantomJSDriver driver;
     private String amazonLink;
 
-//    @FindBy(xpath = "//input[@id='twotabsearchtextbox']")
-//    private TextInput searchInput;
-
     private static final String SEARCH_INPUT = "//input[@id='twotabsearchtextbox']";
     private static final String SEARCH_BUTTON = "//input[@value='Go']";
     private static final String PRODUCT_LINK_TEMPLATE = "//li[starts-with(@id,'result_')]//a[contains(@class,'s-access-detail-page')]";
@@ -53,13 +50,13 @@ public class Amazon extends Site {
                 for (int i = 0; i < resultsAmount; i++) {
                     WebElement productLinkElement = linkElements.get(i);
                     WebElement productPriceElement = priceElements.get(i);
-                    result.add(new BaseData(productLinkElement.getAttribute("href"), Double.parseDouble(productPriceElement.getText().substring(1).replace(",", ""))));
+                    result.add(new BaseData(productLinkElement.getAttribute("href"), (productPriceElement.getText())));
                 }
             } else {
                 for (int i = 0; i < elementsAmount; i++) {
                     WebElement productLinkElement = linkElements.get(i);
                     WebElement productPriceElement = priceElements.get(i);
-                    result.add(new BaseData(productLinkElement.getAttribute("href"), Double.parseDouble(productPriceElement.getText().substring(1).replace(",", ""))));
+                    result.add(new BaseData(productLinkElement.getAttribute("href"), productPriceElement.getText()));
                 }
             }
             resultsAmount = resultsAmount - elementsAmount;
