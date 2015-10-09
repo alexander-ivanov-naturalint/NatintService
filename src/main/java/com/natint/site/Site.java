@@ -70,7 +70,6 @@ public abstract class Site {
 
         Capabilities caps = new DesiredCapabilities();
         ((DesiredCapabilities) caps).setJavascriptEnabled(true);
-        //((DesiredCapabilities) caps).setCapability("takesScreenshot", true);
         ((DesiredCapabilities) caps).setCapability(
                 PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
                 phantomjsPath

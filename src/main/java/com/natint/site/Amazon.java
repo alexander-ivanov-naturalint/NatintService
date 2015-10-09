@@ -33,25 +33,29 @@ public class Amazon extends Site {
             List<WebElement> priceElements = getDriver().findElementsByXPath(PRODUCT_PRICE_TEMPLATE);
             int elementsAmount = linkElements.size();
             if (resultsAmount < elementsAmount) {
-                for (int i = 0; i < resultsAmount; i++) {
-                    WebElement productLinkElement = linkElements.get(i);
-                    WebElement productPriceElement = priceElements.get(i);
-                    result.add(new BaseData(productLinkElement.getAttribute("href"), (productPriceElement.getText())));
-                }
+                extractResult(resultsAmount, result, linkElements, priceElements);
             } else {
-                for (int i = 0; i < elementsAmount; i++) {
-                    WebElement productLinkElement = linkElements.get(i);
-                    WebElement productPriceElement = priceElements.get(i);
-                    result.add(new BaseData(productLinkElement.getAttribute("href"), productPriceElement.getText()));
-                }
+                extractResult(elementsAmount, result, linkElements, priceElements);
             }
             resultsAmount = resultsAmount - elementsAmount;
-            if (!getDriver().findElementsByXPath(NEXT_PAGE_LINK).isEmpty()){
-                getDriver().findElementByXPath(NEXT_PAGE_LINK).click();
-            }
+            clickNextPage();
         }
         logger.info("Search results : " + result.toString());
         return result;
+    }
+
+    private void clickNextPage() {
+        if (!getDriver().findElementsByXPath(NEXT_PAGE_LINK).isEmpty()){
+            getDriver().findElementByXPath(NEXT_PAGE_LINK).click();
+        }
+    }
+
+    private void extractResult(int amount, List<IData> result, List<WebElement> linkElements, List<WebElement> priceElements) {
+        for (int i = 0; i < amount; i++) {
+            WebElement productLinkElement = linkElements.get(i);
+            WebElement productPriceElement = priceElements.get(i);
+            result.add(new BaseData(productLinkElement.getAttribute("href"), (productPriceElement.getText())));
+        }
     }
 
     @Override

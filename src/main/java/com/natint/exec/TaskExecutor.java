@@ -1,14 +1,10 @@
 package com.natint.exec;
 
-import com.natint.data.IData;
-import com.natint.site.Site;
-import com.natint.site.SiteFactory;
 import com.natint.task.Task;
 import com.natint.task.UiTask;
-import org.openqa.selenium.WebDriverException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -16,52 +12,22 @@ import java.util.concurrent.Executors;
 /**
  * Created by skn on 08/10/2015.
  */
+@Component
 public class TaskExecutor {
 
-    static ExecutorService executor = Executors.newFixedThreadPool(1);
-    private Task task;
+    static ExecutorService executor = Executors.newFixedThreadPool(2);
 
-    HashMap<Integer, Status> statusMap;
-    HashMap<Integer, List<IData>> resultMap;
+    @Autowired
+    StatusController statusController;
+    @Autowired
+    ResultController resultController;
 
-    public TaskExecutor(HashMap<Integer, Status> statusMap, HashMap<Integer, List<IData>> resultMap) {
-        this.statusMap = statusMap;
-        this.resultMap = resultMap;
-    }
-
-    public int execute(final Site site) {
-
-        Runnable worker = new Runnable() {
-            @Override
-            public void run() {
-                statusMap.put(getTaskId(), Status.INPROGRESS);
-               try {
-                   List<IData> data = site.collectData();
-                   resultMap.put(getTaskId(), data);
-                   statusMap.put(getTaskId(), Status.COMPLETE);
-               } catch (WebDriverException e) {
-                   statusMap.put(getTaskId(),Status.ERROR);
-                   throw new IllegalStateException(e);
-               }
-            }
-        };
-
-        executor.execute(worker);
-
-        return getTaskId();
-    }
-
-    public Integer getTaskId() {
+    public int execute(final Task task) {
+        executor.execute(task);
         return task.getId();
     }
 
-    public Site init(Map<String, String> params) {
-        task = new UiTask(params);
-        statusMap.put(getTaskId(), Status.INITIALIZED);
-
-        SiteFactory siteFactory = new SiteFactory();
-        Site site = siteFactory.getSite(params.get("siteName"));
-        site.withParams(params.get("searchCriteria"), Integer.parseInt(params.get("resultsAmount")));
-        return site;
+    public Task init(Map<String, String> params) {
+        return new UiTask(params, resultController, statusController);
     }
 }

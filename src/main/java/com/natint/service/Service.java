@@ -1,10 +1,6 @@
 package com.natint.service;
 
 
-import com.natint.data.IData;
-import com.natint.exec.Status;
-
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,8 +9,4 @@ import java.util.Map;
 public interface Service
 {
     public String getTask (Map<String, String> params);
-
-    public List<IData> getResult(Integer id);
-
-    public Status getStatus(Integer id);
 }
