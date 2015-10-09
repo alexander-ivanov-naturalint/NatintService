@@ -1,5 +1,6 @@
 package com.natint.exec;
 
+import com.natint.task.ApiTask;
 import com.natint.task.Task;
 import com.natint.task.UiTask;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,11 @@ public class TaskExecutor {
         return task.getId();
     }
 
-    public Task init(Map<String, String> params) {
+    public Task initUiTask(Map<String, String> params) {
         return new UiTask(params, resultController, statusController);
+    }
+
+    public Task initApiTask(Map<String, String> params) {
+        return new ApiTask(params, resultController, statusController);
     }
 }

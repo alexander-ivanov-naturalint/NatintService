@@ -1,12 +1,19 @@
 package com.natint.service;
 
 
+import com.natint.exec.TaskExecutor;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Map;
 
 /**
  * Created by ivaa on 10/6/2015.
  */
-public interface Service
+public abstract class Service
 {
-    public String getTask (Map<String, String> params);
+
+    @Autowired
+    TaskExecutor taskExecutor;
+
+    public abstract String getTask (Map<String, String> params);
 }

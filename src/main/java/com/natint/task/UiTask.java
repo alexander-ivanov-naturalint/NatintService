@@ -22,7 +22,6 @@ public class UiTask extends Task {
         super(params, resultController, statusController);
         this.site = new SiteFactory().getSite(params.get("siteName"));
         site.withParams(params.get("searchCriteria"), Integer.parseInt(params.get("resultsAmount")));
-        statusController.setStatus(getId(), Status.INITIALIZED);
     }
 
     public Site getSite() {

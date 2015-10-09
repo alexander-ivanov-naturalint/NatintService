@@ -1,6 +1,7 @@
 package com.natint.task;
 
 import com.natint.exec.ResultController;
+import com.natint.exec.Status;
 import com.natint.exec.StatusController;
 
 import java.util.Map;
@@ -23,6 +24,7 @@ public abstract class Task implements Runnable {
         this.params = params;
         this.resultController = resultController;
         this.statusController = statusController;
+        statusController.setStatus(getId(), Status.INITIALIZED);
     }
 
     public int getId() {

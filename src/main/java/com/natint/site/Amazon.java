@@ -45,7 +45,7 @@ public class Amazon extends Site {
     }
 
     private void clickNextPage() {
-        if (!getDriver().findElementsByXPath(NEXT_PAGE_LINK).isEmpty()){
+        if (!getDriver().findElementsByXPath(NEXT_PAGE_LINK).isEmpty()) {
             getDriver().findElementByXPath(NEXT_PAGE_LINK).click();
         }
     }
