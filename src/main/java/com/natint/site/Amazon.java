@@ -15,7 +15,7 @@ public class Amazon extends Site {
 
     private Logger logger = Logger.getLogger(this.getClass());
 
-    private static final String AMAZON_LINK = "https://www.amazon.com/gp/gw/ajax/s.html";
+    private static final String AMAZON_LINK = System.getProperty("NATINT_AMAZON_LINK");
 
     private static final String SEARCH_INPUT = "//input[@id='twotabsearchtextbox']";
     private static final String SEARCH_BUTTON = "//input[@value='Go']";

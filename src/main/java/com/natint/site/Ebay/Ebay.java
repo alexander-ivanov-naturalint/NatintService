@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Ebay extends Site {
 
-    public static final String EBAY_COM = "http://www.ebay.com";
+    public static final String EBAY_COM = System.getProperty("NATINT_EBAY_LINK");
 
     @FindBy(css = "table[class='gh-tbl']")
     private SearchBlock searchBlock;

@@ -8,7 +8,7 @@ import com.natint.site.Ebay.Ebay;
 public class SiteFactory {
 
     public Site getSite (String siteName) {
-        switch (siteName) {
+        switch (siteName.toUpperCase()) {
             case "EBAY" :
                 return new Ebay();
             case "AMAZON" :

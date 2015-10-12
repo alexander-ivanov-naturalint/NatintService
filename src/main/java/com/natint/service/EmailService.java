@@ -1,21 +1,20 @@
 package com.natint.service;
 
-import com.natint.task.ApiTask;
+import com.natint.task.EmailTask;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 /**
- * Created by skn on 09/10/2015.
+ * Created by skn on 12/10/2015.
  */
 @RestController
-public class ApiService extends Service{
-
+public class EmailService extends Service {
     @Override
-    @RequestMapping(value = "/api", method = RequestMethod.POST)
+    @RequestMapping(value = "/email", method = RequestMethod.POST)
     public @ResponseBody String getTask(@RequestBody Map<String, String> params) throws ExecutionException, InterruptedException {
-        ApiTask task = (ApiTask) taskExecutor.initApiTask(params);
+        EmailTask task = (EmailTask) taskExecutor.initEmailTask(params);
         return String.valueOf(taskExecutor.execute(task));
     }
 }

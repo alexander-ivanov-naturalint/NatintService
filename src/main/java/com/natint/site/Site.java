@@ -16,7 +16,7 @@ import java.util.logging.Level;
 /**
  * Created by ivaa on 10/6/2015.
  */
-public abstract class Site {
+public abstract class Site extends Endpoint{
 
     private PhantomJSDriver driver;
     private String searchCriteria;
