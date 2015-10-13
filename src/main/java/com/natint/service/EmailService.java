@@ -14,7 +14,7 @@ public class EmailService extends Service {
     @Override
     @RequestMapping(value = "/email", method = RequestMethod.POST)
     public @ResponseBody String getTask(@RequestBody Map<String, String> params) throws ExecutionException, InterruptedException {
-        EmailTask task = (EmailTask) taskExecutor.initEmailTask(params);
-        return String.valueOf(taskExecutor.execute(task));
+        EmailTask task = (EmailTask) taskExecutorExample.initEmailTask(params);
+        return String.valueOf(taskExecutorExample.execute(task));
     }
 }

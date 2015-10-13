@@ -15,8 +15,8 @@ public class UIService extends Service {
     @Override
     @RequestMapping(value = "/ui", method = RequestMethod.POST)
     public @ResponseBody String getTask(@RequestBody Map<String, String> params) throws ExecutionException, InterruptedException {
-        UiTask task = (UiTask) taskExecutor.initUiTask(params);
-        return String.valueOf(taskExecutor.execute(task));
+        UiTask task = (UiTask) taskExecutorExample.initUiTask(params);
+        return String.valueOf(taskExecutorExample.execute(task));
     }
 
 }

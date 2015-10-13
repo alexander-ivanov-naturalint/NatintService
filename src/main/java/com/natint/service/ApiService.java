@@ -15,7 +15,7 @@ public class ApiService extends Service{
     @Override
     @RequestMapping(value = "/api", method = RequestMethod.POST)
     public @ResponseBody String getTask(@RequestBody Map<String, String> params) throws ExecutionException, InterruptedException {
-        ApiTask task = (ApiTask) taskExecutor.initApiTask(params);
-        return String.valueOf(taskExecutor.execute(task));
+        ApiTask task = (ApiTask) taskExecutorExample.initApiTask(params);
+        return String.valueOf(taskExecutorExample.execute(task));
     }
 }

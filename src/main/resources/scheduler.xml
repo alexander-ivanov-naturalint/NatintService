@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd">
+
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="4"/>
+    </bean>
+
+    <bean id="taskExecutorExample" class="com.natint.task.TaskExecutorExample">
+        <constructor-arg ref="taskExecutor"/>
+    </bean>
+
+
+    <bean name="exampleJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="taskExecutorExample"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="arguments">
+            <list>
+                <value>E:\Tasks.xls</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--<bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">-->
+        <!--<property name="jobDetail" ref="exampleJob"/>-->
+        <!--<property name="repeatInterval" value="5000"/>-->
+        <!--<property name="startDelay" value="1000"/>-->
+    <!--</bean>-->
+
+    <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="exampleJob"/>
+        <!--run every 5 minutes-->
+        <property name="cronExpression" value="0 0/5 * * * ?"/>
+    </bean>
+
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="jobDetails">
+            <list>
+                <ref bean="exampleJob"/>
+            </list>
+        </property>
+        <property name="triggers">
+            <list>
+                <ref bean="cronTrigger"/>
+            </list>
+        </property>
+    </bean>
+</beans>
