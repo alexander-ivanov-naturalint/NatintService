@@ -1,7 +1,7 @@
 package com.natint.service;
 
 
-import com.natint.task.TaskExecutor;
+import com.natint.task.TaskExecutorExample;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
@@ -14,7 +14,7 @@ public abstract class Service
 {
 
     @Autowired
-    TaskExecutor taskExecutor;
+    TaskExecutorExample taskExecutorExample;
 
     public abstract String getTask (Map<String, String> params) throws ExecutionException, InterruptedException;
 }

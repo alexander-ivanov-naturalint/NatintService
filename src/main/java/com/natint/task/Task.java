@@ -47,6 +47,7 @@ public abstract class Task implements Runnable {
 
     @Override
     public void run() {
+        System.out.println("Executing task " + getId());
         statusController.setStatus(getId(), Status.INPROGRESS);
         try {
             List<IData> result = endpoint.collectData();
